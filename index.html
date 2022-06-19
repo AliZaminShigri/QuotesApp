@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Quotes</title>
+    </head>
+
+    <body style="text-align:center;">
+        <h2 id="quotes" style="color: green; font-size: 50px; margin-top: 60px; ">
+            Quote
+        </h2>
+        <h4 id="authors" style="margin-left:40rem; color:red; font-size: 40px;">
+            Author
+        </h4>
+        <button id="button">New Quotes</button>
+
+        <script>
+            const quote=document.getElementById("quotes");
+            const author=document.getElementById("authors");
+            const button=document.getElementById("button");
+            let realData="";
+            let quoteIndex="";
+const getNewQuote=()=>{
+    let rNum=Math.floor(Math.random()*1300);
+    quoteIndex=realData[rNum];
+    quote.innerText=`"${quoteIndex.text}"`;
+    quoteIndex.author==null?
+    author.innerText="Unknown":
+    author.innerText=`${quoteIndex.author}`;
+}
+
+            const getQuote=async ()=>{
+                let api='https://type.fit/api/quotes';
+                try{
+                    let data=await fetch(api);
+                    realData=await data.json();
+                    getNewQuote();
+                    console.log(realData[10].text);
+                }catch(err){
+                    console.log("error occured in fetching data");
+                } 
+            }
+            button.addEventListener('click', getNewQuote);
+             getQuote();
+            
+
+        </script>
+    </body>
+</html>
